@@ -57,9 +57,9 @@ prompt_statusline_draw() {
 		[[ -n ${2} ]] && fg="%F{${2}}" || fg='%f'
 		if [[ -n ${_prompt_statusline_bg[4]} ]]; then
 			if [[ $1 != ${_prompt_statusline_bg[4]} ]]; then
-				echo -n " ${bg}%F{{$_prompt_statusline_bg[4]}}${_prompt_statusline_symbols[4]}"
+				echo -n " ${bg}%F{${_prompt_statusline_bg[4]}}${_prompt_statusline_symbols[4]}"
 			else
-				echo -n " ${bg}%F{{$_prompt_statusline_bg[2]}}${_prompt_statusline_symbols[3]}"
+				echo -n " ${bg}%F{${_prompt_statusline_bg[2]}}${_prompt_statusline_symbols[3]}"
 			fi
 			(( _prompt_statusline_length += 2 ))
 		else
