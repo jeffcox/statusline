@@ -203,8 +203,9 @@ prompt_statusline_segments() {
 					if (( _prompt_statusline_precmd_async_pid == 0 )); then
 						# Declaring this inside the if statement would not be local
 						local git_output="${(e)git_info[prompt]}"
+						local git_bg="${(e)git_info[bg]}"
 						if [[ -n $git_output ]]; then
-							prompt_statusline_draw $draw_options $git_info[bg] 7 $git_output
+							prompt_statusline_draw $draw_options $git_bg 7 $git_output
 						fi
 					else
 						# Display placeholder for async, gray color
