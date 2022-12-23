@@ -288,6 +288,9 @@ prompt_statusline_segments() {
 			(history)
 				prompt_statusline_draw $draw_options $_prompt_statusline_bg[1] '' '!%F{4}%!'
 				;;
+			(battery)
+				prompt_statusline_draw $draw_options $_prompt_statusline_bg[1] '' $(battery-time)
+				;;
 
 			(*)
 				prompt_statusline_draw -w "$1 is not a valid segment!"
