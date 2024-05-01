@@ -464,7 +464,7 @@ prompt_statusline_preview() {
 prompt_statusline_setup() {
 	setopt LOCAL_OPTIONS
 	unsetopt XTRACE KSH_ARRAYS SHWORDSPLIT
-	prompt_opts=(cr percent subst)
+	prompt_opts=(cr percent sp subst)
 	typeset -i _prompt_statusline_precmd_async_pid=0
 	_prompt_statusline_precmd_async_data="${TMPPREFIX}-prompt_statusline_data"
 
