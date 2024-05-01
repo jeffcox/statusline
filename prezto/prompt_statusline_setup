@@ -288,8 +288,18 @@ prompt_statusline_segments() {
 			(history)
 				prompt_statusline_draw $draw_options $_prompt_statusline_bg[1] '' '!%F{4}%!'
 				;;
+
 			(battery)
 				prompt_statusline_draw $draw_options $_prompt_statusline_bg[1] '' $(battery-time)
+				;;
+
+			(kubernetes)
+				# If async has finished
+				if [[ -n $_prompt_statusline_kube && $_prompt_statusline_precmd_async_pid -eq 0 ]]; then
+					if [[ -n $kube_info[rprompt] ]]; then
+						prompt_statusline_draw $draw_options $_prompt_statusline_bg[1] '' $kube_info[rprompt]
+					fi
+				fi
 				;;
 
 			(*)
@@ -353,6 +363,12 @@ prompt_statusline() {
 #
 
 prompt_statusline_precmd_async() {
+	# Get kube info
+	if (( $+functions[prompt_statusline_kube_info] )); then
+		prompt_statusline_kube_info
+		typeset -p kube_info >! $_prompt_statusline_precmd_async_data
+	fi
+
 	# Get Git repository information.
 	if (( $+functions[git-info] )); then
 		git-info
@@ -361,6 +377,10 @@ prompt_statusline_precmd_async() {
 
 	# Signal completion to parent process.
 	kill -WINCH $$
+}
+
+function prompt_statusline_kube_info() {
+  print "$(kubectl config current-context) $(kubectl config view --minify -o jsonpath='{.contexts[0].context.namespace}')"
 }
 
 prompt_statusline_git_info() {
